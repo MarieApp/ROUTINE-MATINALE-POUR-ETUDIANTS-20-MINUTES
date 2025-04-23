@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Routine Matinale pour Étudiants - 20 Minutes</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+        .progress-bar {
+            transition: width 0.5s ease-in-out;
+        }
+        .routine-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .routine-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+            .page-break {
+                page-break-before: avoid;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-blue-50 to-green-50">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-bold text-blue-600 mb-4">Focus Étudiant</h1>
+            <p class="text-xl text-gray-600">Votre routine matinale de 20 minutes pour maximiser votre apprentissage</p>
+        </header>
+
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold text-blue-600 mb-4 md:mb-0">Minuteur de Routine</h2>
+                <div class="flex space-x-2">
+                    <button id="startBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors no-print">
+                        <i class="fas fa-play mr-2"></i> Démarrer
+                    </button>
+                    <button id="pauseBtn" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg transition-colors hidden no-print">
+                        <i class="fas fa-pause mr-2"></i> Pause
+                    </button>
+                    <button id="resetBtn" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors no-print">
+                        <i class="fas fa-redo-alt mr-2"></i> Réinitialiser
+                    </button>
+                </div>
+            </div>
+            
+            <div class="mb-6">
+                <div class="w-full bg-gray-200 rounded-full h-4">
+                    <div id="progressBar" class="bg-blue-600 h-4 rounded-full progress-bar" style="width: 0%"></div>
+                </div>
+                <div class="flex justify-between mt-2 text-sm text-gray-600">
+                    <span>0 min</span>
+                    <span>10 min</span>
+                    <span>20 min</span>
+                </div>
+            </div>
+
+            <div class="flex justify-center mb-4">
+                <div id="timer" class="text-4xl font-bold text-blue-600">20:00</div>
+            </div>
+
+            <div id="currentActivity" class="text-center text-lg font-medium text-gray-700 mb-4">
+                Prêt à commencer votre routine
+            </div>
+
+            <div class="flex justify-center space-x-4 no-print">
+                <button id="prevBtn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i class="fas fa-arrow-left mr-2"></i> Précédent
+                </button>
+                <button id="nextBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                    Suivant <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="routine-container">
+            <!-- Étape 1: Activation cérébrale -->
+            <div id="step1" class="step active">
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                    <h2 class="text-2xl font-semibold text-blue-600 mb-4">Étape 1: Activation Cérébrale (5 minutes)</h2>
+                    <p class="mb-6 text-gray-700">Réveillez votre cerveau et préparez-le à assimiler de nouvelles informations avec ces exercices rapides mais efficaces.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <div class="routine-card bg-blue-50 rounded-lg p-4 border-l-4 border-blue-400">
+                            <h3 class="font-bold text-blue-700 mb-2">Respiration Alpha (1 min)</h3>
+                            <p class="text-gray-700">Activez votre cerveau et augmentez l'oxygénation pour améliorer les fonctions cognitives.</p>
+                            <ol class="mt-2 list-decimal list-inside text-gray-600 text-sm">
+                                <li>Asseyez-vous confortablement, dos droit</li>
+                                <li>Inspirez profondément par le nez pendant 4 secondes</li>
+                                <li>Retenez votre souffle pendant 2 secondes</li>
+                                <li>Expirez lentement par la bouche pendant 6 secondes</li>
+                                <li>Répétez 5 fois en visualisant votre cerveau s'activer</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="routine-card bg-green-50 rounded-lg p-4 border-l-4 border-green-400">
+                            <h3 class="font-bold text-green-700 mb-2">Gymnastique Cérébrale (2 min)</h3>
+                            <p class="text-gray-700">Des exercices qui activent les connexions entre les deux hémisphères du cerveau.</p>
+                            <ol class="mt-2 list-decimal list-inside text-gray-600 text-sm">
+                                <li>Touchez votre coude droit avec votre genou gauche, puis inversez (10x)</li>
+                                <li>Dessinez un cercle avec votre main droite et un carré avec votre main gauche simultanément</li>
+                                <li>Épellez votre nom avec votre main droite dans l'air tout en comptant à rebours de 20 à 1</li>
+                                <li>Massez vos lobes d'oreilles pendant 20 secondes</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="routine-card bg-indigo-50 rounded-lg p-4 border-l-4 border-indigo-400 md:col-span-2">
+                            <h3 class="font-bold text-indigo-700 mb-2">Amorçage Mental (2 min)</h3>
+                            <p class="text-gray-700">Préparez votre cerveau pour un apprentissage optimal avec cette technique d'amorçage.</p>
+                            <ol class="mt-2 list-decimal list-inside text-gray-600 text-sm">
+                                <li>Prenez votre journal ou une feuille de papier</li>
+                                <li>Écrivez les 3 sujets/concepts principaux que vous allez étudier aujourd'hui</li>
+                                <li>Pour chacun, notez rapidement ce que vous savez déjà à ce sujet (30 secondes par sujet)</li>
+                                <li>Formulez une question clé pour chaque sujet que vous aimeriez résoudre</li>
+                                <li>Visualisez-vous en train de comprendre parfaitement ces concepts</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-yellow-50 rounded-lg border-l-4 border-yellow-400">
+                        <h3 class="font-bold text-yellow-700 mb-2">Conseil d'expert:</h3>
+                        <p class="text-gray-700">L'hydratation est cruciale pour les performances cognitives. Buvez un grand verre d'eau pendant cette première étape pour hydrater votre cerveau après les heures de sommeil. Les recherches montrent qu'une déshydratation de seulement 2% peut réduire significativement vos capacités de concentration et de mémorisation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Étape 2: Préparation physique dynamique -->
+            <div id="step2" class="step">
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                    <h2 class="text-2xl font-semibold text-blue-600 mb-4">Étape 2: Préparation Physique Dynamique (5 minutes)</h2>
+                    <p class="mb-4 text-gray-700">Activez votre corps pour stimuler la circulation sanguine vers le cerveau et augmenter votre niveau d'énergie sans transpirer.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <div class="routine-card bg-orange-50 rounded-lg p-4 border-l-4 border-orange-400">
+                            <h3 class="font-bold text-orange-700 mb-2">Échauffement Express (1 min)</h3>
+                            <p class="text-gray-700">Un réveil rapide pour tout le corps.</p>
+                            <ol class="mt-2 list-decimal list-inside text-gray-600 text-sm">
+                                <li>Rotations des poignets et des chevilles (10 secondes)</li>
+                                <li>Haussements d'épaules (5 répétitions)</li>
+                                <li>Rotations du cou douces dans chaque direction</li>
+                                <li>Étirements des bras au-dessus de la tête</li>
+                                <li>Marche dynamique sur place (20 secondes)</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="routine-card bg-red-50 rounded-lg p-4 border-l-4 border-red-400">
+                            <h3 class="font-bold text-red-700 mb-2">Boost Circulatoire (2 min)</h3>
+                            <p class="text-gray-700">Augmentez votre rythme cardiaque pour améliorer l'oxygénation du cerveau.</p>
+                            <ol class="mt-2 list-decimal list-inside text-gray-600 text-sm">
+                                <li>20 jumping jacks légers</li>
+                                <li>10 squats simples</li>
+                                <li>Montées de genoux sur place pendant 30 secondes</li>
+                                <li>10 extensions de bras contre le mur (alternative aux pompes)</li>
+                                <li>Secouez tout votre corps pendant 10 secondes</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="routine-card bg-purple-50 rounded-lg p-4 border-l-4 border-purple-400 md:col-span-2">
+                            <h3 class="font-bold text-purple-700 mb-2">Étirements Cérébraux (2 min)</h3>
+                            <p class="text-gray-700">Des étirements spécifiques qui favorisent la circulation vers le cerveau et réduisent la tension dans les zones clés pour les étudiants.</p>
+                            <ol class="mt-2 list-decimal list-inside text-gray-600 text-sm">
+                                <li>Inclinez la tête sur le côté, main opposée tirant doucement (20 sec chaque côté)</li>
+                                <li>Étirement des épaules avec une serviette ou un stylo tenu derrière le dos</li>
+                                <li>Étirement des poignets pour prévenir la fatigue de l'écriture</li>
+                                <li>Position de l'enfant modifiée (assis sur une chaise, penchez-vous en avant)</li>
+                                <li>Étirement du dos en torsion, assis sur votre chaise</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-green-50 rounded-lg border-l-4 border-green-400">
+                        <h3 class="font-bold text-green-700 mb-2">Astuce pour étudiants:</h3>
+                        <p class="text-gray-700">Ces exercices sont conçus pour être réalisables dans une chambre d'étudiant ou un petit espace sans équipement spécial. Vous pouvez les faire en pyjama ou en tenue décontractée sans avoir besoin de prendre une douche après. Le but est d'augmenter légèrement votre rythme cardiaque sans transpirer, tout en préparant les zones du corps qui seront sollicitées pendant vos sessions d'étude (cou, épaules, poignets).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Étape 3: Révision éclair et ancrage -->
+            <div id="step3" class="step">
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                    <h2 class="text-2xl font-semibold text-blue-600 mb-4">Étape 3: Révision Éclair et Ancrage (5 minutes)</h2>
+                    <p class="mb-4 text-gray-700">Consolidez les connaissances acquises précédemment et préparez votre cerveau pour les nouveaux apprentissages.</p>
+                    
+                    <div class="grid grid-cols-1 gap-6 mt-6">
+                        <div class="routine-card bg-cyan-50 rounded-lg p-4 border-l-4 border-cyan-400">
+                            <h3 class="font-bold text-cyan-700 mb-2">Révision Rétroactive (2 min)</h3>
+                            <p class="text-gray-700">Utilisez la technique de récupération active pour renforcer les connaissances existantes.</p>
+                            <ol class="mt-2 list-decimal list-inside text-gray-600">
+                                <li>Prenez vos notes du cours/lecture précédent(e)</li>
+                                <li>Sans les regarder, écrivez 3-5 points clés dont vous vous souvenez</li>
+                                <li>Vérifiez vos notes et identifiez les éléments oubliés</li>
+                                <li>Réécrivez les points manqués pour renforcer la mémorisation</li>
+                                <li>Créez une phrase mnémotechnique pour les concepts difficiles</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="routine-card bg-teal-50 rounded-lg p-4 border-l-4 border-teal-400">
+                            <h3 class="font-bold text-teal-700 mb-2">Technique de l'Enseignant (2 min)</h3>
+                            <p class="text-gray-700">Expliquer un concept comme si vous l'enseigniez est l'une des meilleures façons de consolider votre compréhension.</p>
+                            <ol class="mt-2 list-decimal list-inside text-gray-600">
+                                <li>Choisissez un concept clé que vous avez étudié récemment</li>
+                                <li>Imaginez que vous l'expliquez à un camarade de classe</li>
+                                <li>Formulez l'explication à voix haute ou par écrit (sans consulter vos notes)</li>
+                                <li>Identifiez les zones d'incertitude où vous hésitez</li>
+                                <li>Notez ces points comme sujets à approfondir aujourd'hui</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="routine-card bg-blue-50 rounded-lg p-4 border-l-4 border-blue-400">
+                            <h3 class="font-bold text-blue-700 mb-2">Ancrage des Objectifs (1 min)</h3>
+                            <p class="text-gray-700">Fixez des objectifs d'apprentissage spécifiques pour votre session d'étude à venir.</p>
+                            <ol class="mt-2 list-decimal list-inside text-gray-600">
+                                <li>Notez exactement ce que vous voulez accomplir aujourd'hui</li>
+                                <li>Décomposez l'objectif en tâches concrètes et mesurables</li>
+                                <li>Estimez le temps nécessaire pour chaque tâche</li>
+                                <li>Identifiez une "récompense" pour quand vous aurez terminé</li>
+                                <li>Visualisez-vous en train de réussir ces objectifs</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-purple-50 rounded-lg border-l-4 border-purple-400">
+                        <h3 class="font-bold text-purple-700 mb-2">Optimisation cognitive:</h3>
+                        <p class="text-gray-700">La science de l'apprentissage montre que la "pratique de récupération" (essayer de se rappeler activement l'information) est beaucoup plus efficace que la simple relecture pour la mémorisation à long terme. Ces exercices de révision active créent des connexions neuronales plus fortes. Études après études, les chercheurs ont constaté que les étudiants qui pratiquent cette méthode obtiennent systématiquement de meilleurs résultats que ceux qui relisent simplement leurs notes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Étape 4: Organisation de session d'étude efficace -->
+            <div id="step4" class="step">
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                    <h2 class="text-2xl font-semibold text-blue-600 mb-4">Étape 4: Organisation de Session d'Étude Efficace (5 minutes)</h2>
+                    <p class="mb-4 text-gray-700">Mettez en place un environnement et un plan d'étude optimisés pour maximiser votre concentration et votre efficacité.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <div class="routine-card bg-indigo-50 rounded-lg p-4 border-l-4 border-indigo-400">
+                            <h3 class="font-bold text-indigo-700 mb-2">Optimisation de l'Environnement (2 min)</h3>
+                            <p class="text-gray-700">Créez un espace propice à la concentration maximale.</p>
+                            <ul class="mt-2 list-disc list-inside text-gray-600 text-sm">
+                                <li>Éliminez les distractions visuelles de votre espace d'étude</li>
+                                <li>Préparez tout le matériel nécessaire pour votre session</li>
+                                <li>Régler la température et la lumière de manière optimale</li>
+                                <li>Activez le mode "Ne pas déranger" sur tous vos appareils</li>
+                                <li>Préparez une bouteille d'eau et une collation saine si nécessaire</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="routine-card bg-green-50 rounded-lg p-4 border-l-4 border-green-400">
+                            <h3 class="font-bold text-green-700 mb-2">Planification par Blocs (2 min)</h3>
+                            <p class="text-gray-700">Structurez votre temps d'étude pour maximiser l'attention et la mémorisation.</p>
+                            <ol class="mt-2 list-decimal list-inside text-gray-600 text-sm">
+                                <li>Découpez votre session en blocs de 25-30 minutes</li>
+                                <li>Planifiez 5 minutes de pause entre chaque bloc</li>
+                                <li>Assignez des tâches spécifiques à chaque bloc</li>
+                                <li>Alternez les matières difficiles et plus faciles</li>
+                                <li>Prévoyez une pause plus longue (15-20 min) après 2 heures</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="routine-card bg-amber-50 rounded-lg p-4 border-l-4 border-amber-400 md:col-span-2">
+                            <h3 class="font-bold text-amber-700 mb-2">Technique de Démarrage Immédiat (1 min)</h3>
+                            <p class="text-gray-700">Surmontez la procrastination et l'inertie initiale avec cette méthode simple mais puissante.</p>
+                            <ol class="mt-2 list-decimal list-inside text-gray-600 text-sm">
+                                <li>Identifiez la tâche la plus petite ou la plus facile pour commencer</li>
+                                <li>Engagez-vous à travailler dessus pendant seulement 5 minutes</li>
+                                <li>Préparez un minuteur visible et réglez-le sur 5 minutes</li>
+                                <li>Commencez immédiatement sans réfléchir (la "règle des 5 secondes")</li>
+                                <li>Après 5 minutes, décidez si vous continuez ou passez à autre chose</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                        <h3 class="font-bold text-blue-700 mb-2">Méthode scientifique:</h3>
+                        <p class="text-gray-700">La technique Pomodoro (étude par blocs de 25 minutes) est validée par de nombreuses études sur l'attention et la productivité. Elle exploite le phénomène d'"urgence artificielle" qui active les centres de motivation du cerveau. L'alternance entre matières différentes, appelée "apprentissage entrelacé", a été prouvée comme étant plus efficace que l'étude concentrée d'un seul sujet pendant une longue période, car elle crée des connexions neuronales plus diversifiées et plus solides.</p>
+                    </div>
+                    
+                    <div class="mt-8 text-center">
+                        <button id="restartBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors text-lg no-print">
+                            <i class="fas fa-redo mr-2"></i> Recommencer la routine
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="text-center py-6 text-gray-600 border-t mt-8">
+            <p>© 2023 Ai-Me | Au Pays de Marie - Tous droits réservés</p>
+            <p class="text-sm mt-2">Une routine matinale conçue pour optimiser vos performances académiques</p>
+        </footer>
+    </div>
+
+    <script>
+        // Éléments DOM
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const restartBtn = document.getElementById('restartBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const timerEl = document.getElementById('timer');
+        const progressBar = document.getElementById('progressBar');
+        const currentActivity = document.getElementById('currentActivity');
+        
+        // Étapes de la routine
+        const steps = [
+            document.getElementById('step1'),
+            document.getElementById('step2'),
+            document.getElementById('step3'),
+            document.getElementById('step4')
+        ];
+        
+        // Configuration du temps
+        const totalTime = 20 * 60; // 20 minutes en secondes
+        const stepTimes = [5 * 60, 5 * 60, 5 * 60, 5 * 60]; // Temps par étape en secondes
+        let remainingTime = totalTime;
+        let timerInterval;
+        let isRunning = false;
+        let currentStep = 0;
+        
+        // Mise à jour du bouton précédent
+        function updatePrevButton() {
+            prevBtn.disabled = currentStep === 0;
+            prevBtn.classList.toggle('opacity-50', currentStep === 0);
+        }
+        
+        // Mise à jour du bouton suivant
+        function updateNextButton() {
+            nextBtn.disabled = currentStep === steps.length - 1;
+            nextBtn.classList.toggle('opacity-50', currentStep === steps.length - 1);
+        }
+        
+        // Fonctions
+        function updateTimerDisplay(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            timerEl.textContent = `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        function updateProgressBar() {
+            const progress = 100 - (remainingTime / totalTime * 100);
+            progressBar.style.width = `${progress}%`;
+        }
+        
+        function updateCurrentStep() {
+            let elapsedTime = totalTime - remainingTime;
+            let stepTime = 0;
+            
+            for (let i = 0; i < stepTimes.length; i++) {
+                stepTime += stepTimes[i];
+                if (elapsedTime < stepTime) {
+                    if (currentStep !== i) {
+                        currentStep = i;
+                        showStep(currentStep);
+                    }
+                    return;
+                }
+            }
+            
+            if (currentStep !== steps.length - 1) {
+                currentStep = steps.length - 1;
+                showStep(currentStep);
+            }
+        }
+        
+        function showStep(stepIndex) {
+            steps.forEach((step, index) => {
+                if (index === stepIndex) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+            
+            // Mettre à jour les boutons de navigation
+            updatePrevButton();
+            updateNextButton();
+            
+            // Mettre à jour le texte de l'activité en cours
+            switch(stepIndex) {
+                case 0:
+                    currentActivity.textContent = "Activation Cérébrale: Réveillez votre cerveau pour l'apprentissage";
+                    break;
+                case 1:
+                    currentActivity.textContent = "Préparation Physique: Énergisez votre corps pour stimuler votre esprit";
+                    break;
+                case 2:
+                    currentActivity.textContent = "Révision Éclair: Consolidez vos connaissances acquises";
+                    break;
+                case 3:
+                    currentActivity.textContent = "Organisation: Préparez une session d'étude optimale";
+                    if (isRunning) {
+                        stopTimer();
+                    }
+                    break;
+            }
+        }
+        
+        function startTimer() {
+            if (isRunning) return;
+            
+            isRunning = true;
+            startBtn.classList.add('hidden');
+            pauseBtn.classList.remove('hidden');
+            
+            timerInterval = setInterval(() => {
+                if (remainingTime > 0) {
+                    remainingTime--;
+                    updateTimerDisplay(remainingTime);
+                    updateProgressBar();
+                    updateCurrentStep();
+                } else {
+                    stopTimer();
+                    showStep(steps.length - 1); // Afficher la dernière étape
+                }
+            }, 1000);
+        }
+        
+        function pauseTimer() {
+            if (!isRunning) return;
+            
+            isRunning = false;
+            clearInterval(timerInterval);
+            startBtn.classList.remove('hidden');
+            pauseBtn.classList.add('hidden');
+        }
+        
+        function stopTimer() {
+            pauseTimer();
+            startBtn.classList.add('hidden');
+        }
+        
+        function resetTimer() {
+            pauseTimer();
+            remainingTime = totalTime;
+            updateTimerDisplay(remainingTime);
+            progressBar.style.width = '0%';
+            currentStep = 0;
+            showStep(currentStep);
+            currentActivity.textContent = "Prêt à commencer votre routine";
+            startBtn.classList.remove('hidden');
+        }
+        
+        function navigateToStep(stepIndex) {
+            if (stepIndex < 0 || stepIndex >= steps.length) return;
+            
+            currentStep = stepIndex;
+            showStep(currentStep);
+            
+            // Ajuster le temps restant en fonction de l'étape
+            let newRemainingTime = totalTime;
+            for (let i = 0; i < stepIndex; i++) {
+                newRemainingTime -= stepTimes[i];
+            }
+            
+            // Ne pas changer le temps si le timer est en cours
+            if (!isRunning) {
+                remainingTime = newRemainingTime;
+                updateTimerDisplay(remainingTime);
+                updateProgressBar();
+            }
+        }
+        
+        // Écouteurs d'événements
+        startBtn.addEventListener('click', startTimer);
+        pauseBtn.addEventListener('click', pauseTimer);
+        resetBtn.addEventListener('click', resetTimer);
+        restartBtn.addEventListener('click', resetTimer);
+        prevBtn.addEventListener('click', () => navigateToStep(currentStep - 1));
+        nextBtn.addEventListener('click', () => navigateToStep(currentStep + 1));
+        
+        // Initialisation
+        updateTimerDisplay(remainingTime);
+        updatePrevButton();
+        updateNextButton();
+    </script>
+</body>
+</html>
